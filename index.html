@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>C81</title>
+    <style>
+        #cc{
+            width: 800px;
+            height: 500px;
+            border: 3px ridge yellow;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Click Canvas</h1>
+        <canvas id="cc"></canvas><br>
+        <label>Color: </label><input id="colorI" type="color"> 
+    </center>
+    
+</body>
+<script>
+    color = "black";
+    width = 3;
+    rad = 20;
+    canvas = document.getElementById("cc");
+    shape = canvas.getContext("2d");
+    var circle = function(x, y, radius){
+        this.x = x;
+        this.y = y;
+        this.r = radius;
+    }
+    circle.prototype.draw = function(){
+        shape.beginPath();
+        shape.strokeStyle = color;
+        shape.lineWidth = width;
+        shape.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+        shape.stroke();
+    }
+    var inital = new circle(400, 250, rad);
+    console.log(inital);
+    inital.draw();
+
+    var my_mousedown = function(event){
+        var Xpos = event.clientX - canvas.offsetLeft;
+        var Ypos = event.clientY - canvas.offsetTop;
+        console.log(Xpos);
+        console.log(Ypos);
+        var clicks = new circle(Xpos, Ypos, rad);
+        clicks.draw();
+    }
+    canvas.addEventListener("mousedown", my_mousedown);
+    
+</script>
+</html>
